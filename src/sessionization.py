@@ -107,7 +107,7 @@ def process_weblog(weblog_file, output_file, inact_period):
 
 def main():
     if len(sys.argv) != 4:
-        print("Four arguments are expected: [window.txt], [actual.txt], [predicted.txt], [comparison.txt]")
+        print("Three arguments are expected")
         exit(1)
     # Input
     weblog_file = sys.argv[1]
