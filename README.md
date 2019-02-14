@@ -7,6 +7,8 @@ Python 3.6.5
 ### Problem description
 Write a program to read in time-ordered weblog file and count requests made in each session.
 
+![Output order illustration](img/end_of_file.png)
+
 ### Input format
 `log.csv`: time-ordered line-separated lists containing comma-delimited `ip`(string), `date` and `time`
 >**ip,date,time**,zone,cik,accession,extention,code,size,idx,norefer,noagent,find,crawler,browser
