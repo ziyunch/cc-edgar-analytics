@@ -5,6 +5,8 @@ Python 3.6.5
 
 ## Problem statement
 ### Problem description
+[More on the coding challenge page](https://github.com/InsightDataScience/edgar-analytics)
+
 Write a program to read in time-ordered weblog file and count requests made in each session.
 
 ![Output order illustration](img/end_of_file.png)
