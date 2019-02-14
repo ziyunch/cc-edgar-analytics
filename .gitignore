@@ -1,0 +1,9 @@
+# General
+.DS_Store
+
+# Thumbnails
+._*
+
+/insight_testsuite/
+
+cc-README.md
