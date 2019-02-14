@@ -17,7 +17,7 @@ Write a program to read in time-ordered weblog file and count requests made in e
 
 ## Approach
 1. Prepare
-   - list of dict to store ip in its current active session log `active_log=[past_active_log{ip:event_index}]`
+   - list of set to store ip in its current active session log `active_log=[past_active_log(ip)]`
    - dict of active ip and information `ip_dict{ip:session_start_date, session_start_time, session_start_second, session_last_active_date, session_last_active_time, session_last_active_second, event_count, first_event_index}`
 
 2. For each line, read in `ip`, `date` and `time`, update ip information in `ip_dict`, add ip in current session log (use `temp`), remove ip in last active session if possible.
@@ -26,4 +26,3 @@ Write a program to read in time-ordered weblog file and count requests made in e
 
 ## Comment
 1. The time complexity is O(nlogn).
-2. Maybe use list of sets to save memory.

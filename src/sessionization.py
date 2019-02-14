@@ -26,8 +26,7 @@ def clean_active_log(num):
     global active_log
     global ip_dict
     global f2
-    sorted(active_log[num].values())
-    for ip, noth in active_log[num].items():
+    for ip in sorted(active_log[num], key=lambda x: ip_dict[x][7]):
         output_session(ip)
 
 def output_session(ip):
@@ -53,8 +52,8 @@ def process_weblog(weblog_file, output_file, inact_period):
     # Initialize the dictionaries
     ip_dict = {}
     ip_dict[0] = []
-    temp = dict()
-    active_log = [dict() for _ in range(0, inact_period)]
+    temp = set()
+    active_log = [set() for _ in range(0, inact_period)]
     # Read in the weblog file
     with open(weblog_file) as f1, open(output_file, "a") as f2:
         f1.readline()
@@ -66,7 +65,7 @@ def process_weblog(weblog_file, output_file, inact_period):
         event_index = 1
         mod_value = time_count % inact_period
         ip_dict[ip] = [date, time, dt, date, time, dt, 1, event_index]
-        temp[ip] = event_index
+        temp.add(ip)
         for line in f1:
             # Read in next ip event
             ip, dt, date, time = read_line(line)
@@ -80,30 +79,30 @@ def process_weblog(weblog_file, output_file, inact_period):
                     # pop ip from last active session log
                     last_time_count = time_diff(ip_dict[ip][5], dt0)
                     last_mod = last_time_count % inact_period
-                    active_log[last_mod].pop(ip)
+                    active_log[last_mod].remove(ip)
                 time_count = diff
                 mod_value = time_count % inact_period
-                temp = dict()
+                temp = set()
             # Update ip dictionary for active sessions
             # Add ip in updated current active session log with event index
             if ip not in ip_dict:
                 # Initialize ip in this session
                 ip_dict[ip] = [date, time, dt, date, time, dt, 1, event_index]
-                temp[ip] = event_index
+                temp.add(ip)
             else:
                 # Update current session's last update time and event count
                 ip_dict[ip][3] = date
                 ip_dict[ip][4] = time
                 ip_dict[ip][5] = dt
                 ip_dict[ip][6] += 1
-                temp[ip] = ip_dict[ip][7]
+                temp.add(ip)
         # Deal with the remaining ip sessions
-        remaindt = dict()
+        remaindt = set()
         remaindt.update(active_log[mod_value])
         active_log[mod_value] = temp
         for i in range(0, inact_period):
             remaindt.update(active_log[i])
-        for ip in sorted(remaindt, key=remaindt.get):
+        for ip in sorted(remaindt, key=lambda x: ip_dict[x][7]):
             output_session(ip)
 
 def main():
