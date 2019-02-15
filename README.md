@@ -1,4 +1,5 @@
-# Coding challenge
+# EDGAR stream analytics
+A coding challenge
 
 ## Requirements
 Python 3.6.5
